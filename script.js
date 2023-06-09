@@ -2,6 +2,7 @@ var container = document.getElementById("container");
 var rect2;
 var boxes;
 
+/*
 function loadBoxes() {
   fetch('boxes.json')
     .then(response => response.json())
@@ -11,6 +12,40 @@ function loadBoxes() {
     })
     .catch(error => console.error('Error loading boxes:', error));
 }
+*/
+
+boxes = [
+  {
+      "identifier": "box1",
+      "class": "1",
+      "data": "for (int i = 0; i < 10; i++) {<br>&#160;&#160;&#160;&#160;for (int j = 0; j < 10; j++) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (i - j > 1) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('*');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;} else {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('-');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;System.out.println();<br>}"
+  },
+  {
+      "identifier": "box2", 
+      "class": "1",
+      "data": "----------<br>----------<br>*---------<br>**--------<br>***-------<br>****------<br>*****-----<br>******----<br>*******---<br>********--"
+  },
+  {
+      "identifier": "box3",
+      "class": "2",
+      "data": "for (int i = 0; i < 10; i++) {<br>&#160;&#160;&#160;&#160;for (int j = 0; j < 10; j++) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (i - j > 2) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('*');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;} else {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('-');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;System.out.println();<br>}"
+  },
+  {
+      "identifier": "box4",
+      "class": "2",
+      "data": "----------<br>----------<br>----------<br>*---------<br>**--------<br>***-------<br>****------<br>*****-----<br>******----<br>*******---"
+  },
+  {
+      "identifier": "box5",
+      "class": "3",
+      "data": "for (int i = 0; i < 10; i++) {<br>&#160;&#160;&#160;&#160;for (int j = 0; j < 10; j++) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (i - j > 3) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('*');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;} else {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('-');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;System.out.println();<br>}"
+  },
+  {
+      "identifier": "box6",
+      "class": "3",
+      "data": "----------<br>----------<br>----------<br>----------<br>*---------<br>**--------<br>***-------<br>****------<br>*****-----<br>******----"
+  }
+]
 
 function makeBoxes() {
   for (var i = 0; i < boxes.length; i++) {
@@ -52,8 +87,8 @@ function dragElement(el) {
     document.onmousemove = drag;
   }
 
-  function dragEnd(e) {
-    checkOverlap();
+  function dragEnd() {
+    checkOverlap(el);
     el.classList.remove("top-layer");
     document.onmouseup = null;
     document.onmousemove = null;
@@ -76,24 +111,28 @@ function dragElement(el) {
     el.style.left = (el.offsetLeft - pos1) + "px";
   }
 
-  function checkOverlap() {
+  function checkOverlap(el) {
+    var currentBox = el
+    console.log(el);
+    var currentBoxRect = currentBox.getBoundingClientRect();
     for (var i = 0; i < boxes.length; i++) {
-      var currentBox = boxes[i];
-      var currentBoxRect = currentBox.getBoundingClientRect();
 
-      for (var j = i + 1; j < boxes.length; j++) {
-        var otherBox = boxes[j];
-        var otherBoxRect = otherBox.getBoundingClientRect();
+      var otherBox = boxes[i];
 
-        if (
-          !currentBox.classList.contains("disappear") &&
-          !otherBox.classList.contains("disappear") &&
-          currentBox.classList[1] === otherBox.classList[1] &&
-          doBoxesOverlap(currentBoxRect, otherBoxRect)
-        ) {
-          currentBox.classList.add("disappear");
-          otherBox.classList.add("disappear");
-        }
+      if (otherBox == currentBox) {
+        continue;
+      }
+
+      var otherBoxRect = otherBox.getBoundingClientRect();
+
+      if (
+        !currentBox.classList.contains("disappear") &&
+        !otherBox.classList.contains("disappear") &&
+        currentBox.classList[1] === otherBox.classList[1] &&
+        doBoxesOverlap(currentBoxRect, otherBoxRect)
+      ) {
+        currentBox.classList.add("disappear");
+        otherBox.classList.add("disappear");
       }
     }
   }
@@ -121,9 +160,9 @@ function dragElement(el) {
 function doBoxesOverlap(box1, box2) {
   console.log(box1.left);
   return (
-    box1.left < box2.right ||
-    box1.right > box2.left ||
-    box1.top < box2.bottom ||
+    box1.left < box2.right &&
+    box1.right > box2.left &&
+    box1.top < box2.bottom &&
     box1.bottom > box2.top
   );
 }
