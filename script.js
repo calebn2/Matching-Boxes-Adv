@@ -168,4 +168,4 @@ function doBoxesOverlap(box1, box2) {
     box1.bottom > box2.top
   );
 }
-loadBoxes();
+//loadBoxes();
