@@ -1,6 +1,6 @@
 var container = document.getElementById("container");
 var boxes;
-
+/*
 function loadBoxes() {
   fetch('boxes.json')
     .then(response => response.json())
@@ -10,15 +10,19 @@ function loadBoxes() {
     })
     .catch(error => console.error('Error loading boxes:', error));
 }
+*/
 
+console.log(boxes[0][0]);
+makeBoxes();
 function makeBoxes() {
   for (var i = 0; i < boxes.length; i++) {
-    var card = document.createElement("div");
-    console.log(container);
-    container.appendChild(card);
-    card.classList.add("box");
-    card.classList.add(boxes[i].class);
-    card.innerHTML = boxes[i].data;
+    for (var j = 0; j < 2; j++) {
+      var card = document.createElement("div");
+      container.appendChild(card);
+      card.classList.add("box");
+      card.classList.add(i);
+      card.innerHTML = boxes[i][j];
+    }
   }
   boxes = container.childNodes;
   setBoxLocation();
@@ -131,4 +135,4 @@ function dragElement(el) {
   }
 }
 
-loadBoxes();
+//loadBoxes();

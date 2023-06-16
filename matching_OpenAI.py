@@ -4,6 +4,9 @@ import json
 file = open('data.json')
 data = json.load(file)
 file.close
+
+system_training = "You are a Java computer science teacher who is creating an online matching assignment for your students. Your job is to make java code segments and outputs that is structured in a JSON 2D array like the following."
+system_instructions = "You should make 4 arrays, each with a code segment, and the output to that code segment. The code and output should be in html format, and unique from each other. Java variables should have generic names like: x, y, and z. The content of the array should be related to Java classes and objects. The content should be generic to make the questions harder."
 # Example OpenAI Python library request
 # openai.api_key = ""
 
@@ -13,7 +16,7 @@ file.close
 #     messages=[
 #         {
 #           "role": "system",
-#           "content": "You are a Java computer science teacher who is creating an online matching assignment for your students who are learning about nested iteration. You format your response in JSON based on the following array: " + data + "There should be 8 pairs of objects, each with a class that is the same as the matching objects class, and the actual data that will be the content of the matching game. The data should be in html format, be unique from other data, and test a students knowledge of Java nested for loops. The data must include Java code. Java variables should have generic names like: x, y, and z. You should only respond with the code, no other text."
+#           "content": system_training + " " + data + " " + system_instructions
 #         },
 #         {
 #           "role": "user", 
@@ -26,31 +29,19 @@ file.close
 # response
 
 #new_data = response['choices'][0]['message']['content']
+
+# Dummy data
 new_data = [
-    {
-        "class": "1",
-        "data": "data 1"
-    },
-    {
-        "class": "1",
-        "data": "data 2"
-    },
-    {
-        "class": "2",
-        "data": "data 3"
-    },
-    {
-        "class": "2",
-        "data": "data 4"
-    },
-    {
-        "class": "3",
-        "data": "data 5"
-    },
-    {
-        "class": "3",
-        "data": "data 6"
-    }
+    [
+        "code",
+        "output"
+    ],
+    [
+        "code",
+        "output"
+    ]
 ]
+
+# Makes a JSON file called boxes.json which contains the response from GPT
 with open("boxes.json", "w") as outfile:
     json.dump(new_data, outfile)
