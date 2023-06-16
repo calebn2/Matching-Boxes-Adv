@@ -1,8 +1,6 @@
 var container = document.getElementById("container");
-var rect2;
 var boxes;
 
-/*
 function loadBoxes() {
   fetch('boxes.json')
     .then(response => response.json())
@@ -12,48 +10,12 @@ function loadBoxes() {
     })
     .catch(error => console.error('Error loading boxes:', error));
 }
-*/
-
-boxes = [
-  {
-      "identifier": "box1",
-      "class": "1",
-      "data": "for (int i = 0; i < 10; i++) {<br>&#160;&#160;&#160;&#160;for (int j = 0; j < 10; j++) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (i - j > 1) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('*');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;} else {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('-');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;System.out.println();<br>}"
-  },
-  {
-      "identifier": "box2", 
-      "class": "1",
-      "data": "----------<br>----------<br>*---------<br>**--------<br>***-------<br>****------<br>*****-----<br>******----<br>*******---<br>********--"
-  },
-  {
-      "identifier": "box3",
-      "class": "2",
-      "data": "for (int i = 0; i < 10; i++) {<br>&#160;&#160;&#160;&#160;for (int j = 0; j < 10; j++) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (i - j > 2) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('*');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;} else {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('-');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;System.out.println();<br>}"
-  },
-  {
-      "identifier": "box4",
-      "class": "2",
-      "data": "----------<br>----------<br>----------<br>*---------<br>**--------<br>***-------<br>****------<br>*****-----<br>******----<br>*******---"
-  },
-  {
-      "identifier": "box5",
-      "class": "3",
-      "data": "for (int i = 0; i < 10; i++) {<br>&#160;&#160;&#160;&#160;for (int j = 0; j < 10; j++) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (i - j > 3) {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('*');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;} else {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;System.out.print('-');<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;System.out.println();<br>}"
-  },
-  {
-      "identifier": "box6",
-      "class": "3",
-      "data": "----------<br>----------<br>----------<br>----------<br>*---------<br>**--------<br>***-------<br>****------<br>*****-----<br>******----"
-  }
-]
-
-makeBoxes();
 
 function makeBoxes() {
   for (var i = 0; i < boxes.length; i++) {
     var card = document.createElement("div");
+    console.log(container);
     container.appendChild(card);
-    card.id = boxes[i].identifier;
     card.classList.add("box");
     card.classList.add(boxes[i].class);
     card.innerHTML = boxes[i].data;
@@ -157,15 +119,16 @@ function dragElement(el) {
     if (touchingBottom && !el.classList.contains("Bottom") && pos2 < 0) el.classList.add("Bottom");
     else if (pos2 > 0 && el.classList.contains("Bottom")) el.classList.remove("Bottom");
   }
+
+  function doBoxesOverlap(box1, box2) {
+    console.log(box1.left);
+    return (
+      box1.left < box2.right &&
+      box1.right > box2.left &&
+      box1.top < box2.bottom &&
+      box1.bottom > box2.top
+    );
+  }
 }
 
-function doBoxesOverlap(box1, box2) {
-  console.log(box1.left);
-  return (
-    box1.left < box2.right &&
-    box1.right > box2.left &&
-    box1.top < box2.bottom &&
-    box1.bottom > box2.top
-  );
-}
-//loadBoxes();
+loadBoxes();
