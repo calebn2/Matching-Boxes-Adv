@@ -12,8 +12,6 @@ function loadBoxes() {
 }
 */
 
-boxes = 
-
 makeBoxes();
 function makeBoxes() {
   for (var i = 0; i < boxes.length; i++) {
