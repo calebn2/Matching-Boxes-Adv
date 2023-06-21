@@ -1,6 +1,6 @@
 var container = document.getElementById("container");
 var boxes;
-/*
+
 function loadBoxes() {
   fetch('boxes.json')
     .then(response => response.json())
@@ -10,9 +10,8 @@ function loadBoxes() {
     })
     .catch(error => console.error('Error loading boxes:', error));
 }
-*/
 
-makeBoxes();
+
 function makeBoxes() {
   for (var i = 0; i < boxes.length; i++) {
     for (var j = 0; j < 2; j++) {
@@ -80,7 +79,6 @@ function dragElement(el) {
 
   function checkOverlap(el) {
     var currentBox = el
-    console.log(el);
     var currentBoxRect = currentBox.getBoundingClientRect();
     for (var i = 0; i < boxes.length; i++) {
 
@@ -124,7 +122,6 @@ function dragElement(el) {
   }
 
   function doBoxesOverlap(box1, box2) {
-    console.log(box1.left);
     return (
       box1.left < box2.right &&
       box1.right > box2.left &&
@@ -134,4 +131,4 @@ function dragElement(el) {
   }
 }
 
-//loadBoxes();
+loadBoxes();
