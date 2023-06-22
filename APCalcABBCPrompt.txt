@@ -1,1 +1,1 @@
-"Make me a matching exercise that tests me on [TOPIC]. The 'output' should only include numbers and should be unique from other outputs. If there are exponents use the <sup> tag."
+Hello, make me a matching exercise over determining intervals over which a function is continuous. Write equations using MathML. Make sure that all terms and outputs are unique from each other. Do not include a header. In the term only include an equation, and in the output only include the interval. Make sure to put the property name in double quotes.

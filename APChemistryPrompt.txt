@@ -1,1 +1,1 @@
-"Make me a matching exercise that tests me on [TOPIC]. Do not make JSON objects."
+Hello, make me a matching exercise for chemistry. Make the exercise over the differences between solid, liquid, and gas phases using a particulate level model. Remember to only make four pairs.

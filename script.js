@@ -11,16 +11,18 @@ function loadBoxes() {
     .catch(error => console.error('Error loading boxes:', error));
 }
 
-
 function makeBoxes() {
-  for (var i = 0; i < boxes.length; i++) {
-    for (var j = 0; j < 2; j++) {
-      var card = document.createElement("div");
-      container.appendChild(card);
-      card.classList.add("box");
-      card.classList.add(i);
-      card.innerHTML = boxes[i][j];
-    }
+  for (var i = 0; i < 4; i++) {
+      var term = document.createElement("div");
+      var output = document.createElement("div");
+      container.appendChild(term);
+      container.appendChild(output);
+      term.classList.add("box");
+      output.classList.add("box");
+      term.classList.add(i);
+      output.classList.add(i);
+      term.innerHTML = boxes[i]["term"];
+      output.innerHTML = boxes[i]["output"];
   }
   boxes = container.childNodes;
   setBoxLocation();
