@@ -1,7 +1,7 @@
 var container = document.getElementById("container");
 var boxes;
 
-function loadBoxes() {
+window.onload = function () {
   fetch('boxes.json')
     .then(response => response.json())
     .then(data => {
@@ -24,6 +24,11 @@ function makeBoxes() {
       term.innerHTML = boxes[i]["term"];
       output.innerHTML = boxes[i]["output"];
   }
+
+  if (boxes[0]["type"] === "math") {
+    makeGraphs(boxes);
+  }
+  
   boxes = container.childNodes;
   setBoxLocation();
 }
@@ -132,5 +137,3 @@ function dragElement(el) {
     );
   }
 }
-
-loadBoxes();
