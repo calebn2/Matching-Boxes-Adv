@@ -3,9 +3,9 @@ import openai
 import os
 
 # Calls GPT-4
-def get_response(user_prompt):
+def get_response(system_prompt, user_prompt):
   # Messages I give to GPT-4
-  system_training = "I am making a matching exercise for students and you are making the things that are being matched. A student will be working on a school subject and topic that they will tell to you. It is your job to come up with four pairs of items that match to each other and relate to the subject and topic that they tell you. The pairs you come up with should be easy enough for a high school student to understand; however, they should also be generic and different from each other to make the exercise more challenging for a student. Unless told otherwise, make the pairs be base level understanding. The pairs you make should be formatted into a JSON file. First make an array, and then put arrays of pairs inside the initial array. It should be formatted like this unless told otherwise: {0: {term: term, output: output}}. Surround the JSON file with three back-ticks like so: ```json{0: {term: term, output: output}}```."
+  system_training = system_prompt
   # OpenAI Keys
   openai.organization = "org-4syK5rpvVR7nABjSceLGim9e"
   openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -46,9 +46,18 @@ def get_user_content(topic):
       file = 'APComputerScienceAPrompt.txt'
     if topic == "world":
       file = 'APWorldHistoryPrompt.txt'
+    if topic == "chem":
+      file = 'APChemistryPrompt.txt'
+    if topic == "bio":
+      file = 'APBiologyPrompt.txt'
+    if topic == "csa2":
+      file = 'APComputerScienceAPrompt2.txt'
     with open(file, "r") as f:
       user_prompt = f.readline()
+    with open('SystemPrompt.txt', "r") as s:
+      system_prompt = s.readline()
     f.close
-    get_response(user_prompt)
+    s.close
+    get_response(system_prompt, user_prompt)
 
-get_user_content("calc")
+get_user_content("bio")
